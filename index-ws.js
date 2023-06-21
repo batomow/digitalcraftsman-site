@@ -60,7 +60,7 @@ const db = new sqlite.Database(':memory:');
 db.serialize( () => {
   db.run(`
     CREATE TABLE visitors (
-      count INTEGER
+      count INTEGER,
       time TEXT
     )
   `)
