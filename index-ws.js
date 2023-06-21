@@ -13,9 +13,15 @@ server.on('request', app);
 server.listen(3000, function(){console.log("Server started on port 3000") ; });
 
 process.on("SIGINT", ()=>{
+
+  wss.clients.forEach(function each(client){
+    client.close();
+  });
+
   server.close(()=>{
     shutdownDB();
-  })
+  });
+
 })
 
 /** Begin Websocket **/ 
@@ -66,15 +72,14 @@ db.serialize( () => {
   `)
 })
 
-function getCounts () { 
+function getCounts() { 
   db.each("SELECT * FROM visitors", (err, row)=>{
     console.log(row);
-  })
+  });
 }
 
 function shutdownDB() {
   getCounts(); 
   console.log("Shutting down db...")
   db.close();
-
 }
