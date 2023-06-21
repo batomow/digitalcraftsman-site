@@ -35,8 +35,8 @@ wss.on('connection', function connection(ws){
   }
 
   db.run(`
-    INSERT INTO visitors (count time)
-    VALUES (${numClients} datetime('now'))
+    INSERT INTO visitors (count, time)
+    VALUES (${numClients}, datetime('now'))
   `)
 
   ws.on('close', function close() {
